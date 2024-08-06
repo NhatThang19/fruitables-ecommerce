@@ -9,13 +9,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
-import jakarta.servlet.ServletContext;
 import vn.knight.fruitables_ecommerce.domain.Image;
 import vn.knight.fruitables_ecommerce.domain.User;
 import vn.knight.fruitables_ecommerce.service.ImageService;
 import vn.knight.fruitables_ecommerce.service.UserService;
 
-import java.io.File;
 import java.util.List;
 
 @Controller
@@ -23,13 +21,10 @@ public class ImageController {
 
     private final UserService userService;
     private final ImageService imageService;
-    private final ServletContext servletContext;
 
-    public ImageController(UserService userService, ImageService imageService,
-            ServletContext servletContext) {
+    public ImageController(UserService userService, ImageService imageService) {
         this.userService = userService;
         this.imageService = imageService;
-        this.servletContext = servletContext;
     }
 
     String path = "image";
