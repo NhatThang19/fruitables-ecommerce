@@ -14,18 +14,15 @@ import org.springframework.web.multipart.MultipartFile;
 
 import vn.knight.fruitables_ecommerce.domain.User;
 import vn.knight.fruitables_ecommerce.service.ImageService;
-import vn.knight.fruitables_ecommerce.service.UploadImgService;
 import vn.knight.fruitables_ecommerce.service.UserService;
 
 @Controller
 public class UserController {
     private final UserService userService;
-    private final UploadImgService uploadImgService;
     private final ImageService imageService;
 
-    public UserController(UserService userService, UploadImgService uploadImgService, ImageService imageService) {
+    public UserController(UserService userService, ImageService imageService) {
         this.userService = userService;
-        this.uploadImgService = uploadImgService;
         this.imageService = imageService;
     }
 
@@ -49,7 +46,7 @@ public class UserController {
     @PostMapping("/admin/user/create")
     public String createUserHandel(Model model, @ModelAttribute("newUser") User newUser,
             @RequestParam("avatarFile") MultipartFile file) {
-        String avatar = this.uploadImgService.handleSaveUploadOneImg(file, "avatar");
+        String avatar = this.imageService.handleSaveUploadOneImg(file, "avatar");
         newUser.setRole(this.userService.getRoleByName(newUser.getRole().getName()));
         newUser.setCreatedDate(Instant.now());
         newUser.setImage(this.imageService.getImgByName(avatar));
@@ -89,10 +86,11 @@ public class UserController {
     @PostMapping("/admin/user/update")
     public String updateUserPage(Model model, @ModelAttribute("currentUser") User user,
             @RequestParam("avatarFile") MultipartFile file) {
+        model.addAttribute("path", path);
         User currentUser = this.userService.findUserById(user.getId());
         if (currentUser != null) {
             if (!file.isEmpty()) {
-                String avatar = this.uploadImgService.handleSaveUploadOneImg(file, "avatar");
+                String avatar = this.imageService.handleSaveUploadOneImg(file, "avatar");
                 currentUser.setImage(this.imageService.getImgByName(avatar));
             }
             currentUser.setAddress(user.getAddress());

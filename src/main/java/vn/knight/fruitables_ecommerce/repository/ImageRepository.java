@@ -14,4 +14,8 @@ public interface ImageRepository extends JpaRepository<Image, Long> {
     Image save(Image img);
 
     List<Image> findAll();
+
+    Image findById(long id);
+
+    void deleteById(long id);
 }

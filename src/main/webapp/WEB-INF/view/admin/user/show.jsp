@@ -9,7 +9,7 @@
             <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
             <meta name="description" content="Nhật Thắng - Dự án website hoa quả" />
             <meta name="author" content="Nhật Thắng" />
-            <title>Dashboard</title>
+            <title>User - Fruitables</title>
             <link rel="icon" type="image/x-icon" href="/admin/images/a12f6df44709e908b9e03e68e7bff6c6-removebg.png">
             <link href="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/style.min.css" rel="stylesheet" />
             <link rel="stylesheet" href="/admin/css/main.css">
@@ -18,6 +18,8 @@
         </head>
 
         <body class="sb-nav-fixed">
+            <jsp:include page="../layout/loading.jsp" />
+            <div id="content"></div>
             <jsp:include page="../layout/header.jsp" />
             <div id="layoutSidenav">
                 <jsp:include page="../layout/sidebar.jsp" />
@@ -99,7 +101,8 @@
             </div>
             <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
                 crossorigin="anonymous"></script>
-            <script src="js/scripts.js"></script>
+            <script src="/admin/js/scripts.js"></script>
+            <script src="/admin/js/jquery.js"></script>
             <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js"
                 crossorigin="anonymous"></script>
         </body>

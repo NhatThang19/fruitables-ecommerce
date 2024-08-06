@@ -39,4 +39,7 @@ public class UserService {
         this.userRepository.deleteById(id);
     }
 
+    public List<User> getUsersByImageId(Long imageId) {
+        return userRepository.findUsersByImageId(imageId);
+    }
 }

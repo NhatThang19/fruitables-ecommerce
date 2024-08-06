@@ -1,18 +1,26 @@
 package vn.knight.fruitables_ecommerce.service;
 
+import java.io.BufferedOutputStream;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
+import jakarta.servlet.ServletContext;
 import vn.knight.fruitables_ecommerce.domain.Image;
 import vn.knight.fruitables_ecommerce.repository.ImageRepository;
 
 @Service
 public class ImageService {
     private final ImageRepository imageRepository;
+    private final ServletContext servletContext;
 
-    public ImageService(ImageRepository imageRepository) {
+    public ImageService(ImageRepository imageRepository, ServletContext servletContext) {
         this.imageRepository = imageRepository;
+        this.servletContext = servletContext;
     }
 
     public Image getImgByName(String name) {
@@ -25,6 +33,75 @@ public class ImageService {
 
     public List<Image> getAllImg() {
         return this.imageRepository.findAll();
+    }
+
+    public Image findImageById(long id) {
+        return this.imageRepository.findById(id);
+    }
+
+    public void deleteAImgByIdSQL(Long id) {
+        this.imageRepository.deleteById(id);
+    }
+
+    public void deleteAImg(Image image) {
+        String relativeFilePath = File.separator + "resources" + image.getSrc();
+
+        if (relativeFilePath != null && !relativeFilePath.isEmpty()) {
+
+            String absoluteFilePath = servletContext.getRealPath(relativeFilePath);
+
+            File fileToDelete = new File(absoluteFilePath);
+            if (fileToDelete.exists()) {
+                if (fileToDelete.delete()) {
+                    System.out.println("File deleted successfully.");
+                } else {
+                    System.out.println("Failed to delete the file.");
+                }
+            } else {
+                System.out.println("File not found.");
+            }
+        } else {
+            System.out.println("File path is null or empty.");
+        }
+
+        this.deleteAImgByIdSQL(image.getId());
+    }
+
+    public String handleSaveUploadOneImg(MultipartFile file, String targetFolder) {
+        if (file.isEmpty() || targetFolder.isEmpty()) {
+            return "default_user.jpg";
+        }
+
+        String rootPath = this.servletContext.getRealPath("/resources/admin/images");
+        String finalName = "";
+        String src = "";
+        try {
+            byte[] bytes = file.getBytes();
+
+            File dir = new File(rootPath + File.separator + targetFolder);
+            if (!dir.exists())
+                dir.mkdirs();
+
+            finalName = System.currentTimeMillis() + "-" + file.getOriginalFilename();
+
+            File serverFile = new File(dir.getAbsolutePath() + File.separator + finalName);
+
+            src = "/admin/images" + "/" + targetFolder + "/" + finalName;
+
+            BufferedOutputStream stream = new BufferedOutputStream(
+                    new FileOutputStream(serverFile));
+            stream.write(bytes);
+            stream.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        Image newImg = new Image();
+        newImg.setSrc(src);
+        newImg.setName(finalName);
+        this.handleSaveImg(newImg);
+
+        return finalName;
     }
 
 }
