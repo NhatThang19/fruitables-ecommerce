@@ -5,7 +5,7 @@
             <html lang="en">
 
             <head>
-                <title>View user - Fruitables</title>
+                <title>Xem người dùng - Fruitables</title>
                 <%@include file="../layout/head.jsp" %>
             </head>
 

@@ -5,7 +5,7 @@
             <html lang="en">
 
             <head>
-                <title>Create user - Fruitables</title>
+                <title>Tạo người dùng - Fruitables</title>
                 <%@include file="../layout/head.jsp" %>
             </head>
 
@@ -52,7 +52,7 @@
                                                 </div>
                                             </div>
                                             <div class="row mb-3">
-                                                <div class="col-12 col-md-6 mt-md-0 mt-3">
+                                                <div class="col-12 col-md-6">
                                                     <c:set var="errorSurname">
                                                         <form:errors path="surname" cssClass="invalid-feedback" />
                                                     </c:set>
@@ -62,7 +62,7 @@
                                                         id="surname" autocomplete="off" path="surname" />
                                                     ${errorSurname}
                                                 </div>
-                                                <div class="col-12 col-md-6">
+                                                <div class="col-12 col-md-6 mt-md-0 mt-3">
                                                     <c:set var="errorName">
                                                         <form:errors path="name" cssClass="invalid-feedback" />
                                                     </c:set>

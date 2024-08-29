@@ -5,7 +5,7 @@
             <html lang="en">
 
             <head>>
-                <title>Update user - Fruitables</title>
+                <title>Cập nhật người dùng - Fruitables</title>
                 <%@include file="../layout/head.jsp" %>
             </head>
 

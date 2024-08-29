@@ -5,7 +5,7 @@
             <html lang="en">
 
             <head>
-                <title>Delete user - Fruitables</title>
+                <title>Xóa người dùng - Fruitables</title>
                 <%@include file="../layout/head.jsp" %>
             </head>
 

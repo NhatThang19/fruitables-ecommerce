@@ -4,7 +4,7 @@
         <html lang="en">
 
         <head>
-            <title>User - Fruitables</title>
+            <title>Người dùng - Fruitables</title>
             <%@include file="../layout/head.jsp" %>
         </head>
 
